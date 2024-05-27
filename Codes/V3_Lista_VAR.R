@@ -34,37 +34,37 @@ library(mFilter) #Filtro HP
 #install.packages("urca")
 library("urca")
 
-install.packages("forecast")
+#install.packages("forecast")
 library(forecast)
 
-install.packages("sandwich")
+#install.packages("sandwich")
 library(sandwich) #Erros padrão HAC
 
-install.packages("lmtest")
+#install.packages("lmtest")
 library(lmtest) #Testes com erros padrão robustos
 
-install.packages("PNADcIBGE")
+#install.packages("PNADcIBGE")
 library(PNADcIBGE)
 
-install.packages("survey")
+#install.packages("survey")
 library(survey)
 
-install.packages("convey")
+#install.packages("convey")
 library(convey)
 
-install.packages("dplyr")
+#install.packages("dplyr")
 library(dplyr)
 
-install.packages("knitr")
+#install.packages("knitr")
 library(knitr)
 
-install.packages("kableExtra")
+#install.packages("kableExtra")
 library(kableExtra)
 
-install.packages("zoo")
+#install.packages("zoo")
 library(zoo)
 
-install.packages("ggplot2")
+#install.packages("ggplot2")
 library(ggplot2)
 
 ## Carregando dados das variáveis de interesse------------------------------------
@@ -237,7 +237,7 @@ stat = 2*(logLik(modelo) - logLik(VAR(dados,type = 'both', p = 7)))
 print(stat)
 
 #Valor crítico é, a 5%
-qchisq(0.95, 9)
+qchisq(0.95, 4)
 
 #Aceitamos nula de que oitava defasagem é inócua.Aceitamos h0 de que def
 #defasagem é inócua. 
