@@ -17,21 +17,21 @@
 # Para dados do BCB, instalamos o seguinte pacote
 # Utilizaremos os dados do BCB para este exerício
 
-install.packages("GetBCBData")
+#install.packages("GetBCBData")
 library(GetBCBData)
 
-install.packages("tidyverse")
+#install.packages("tidyverse")
 library(tidyverse)
 
 #Instalando pacotes para decompor e dessazonalizar
-install.packages("seasonal")
+#install.packages("seasonal")
 library(seasonal) #Arima X13-Seats
 
-install.packages("mFilter")
+#install.packages("mFilter")
 library(mFilter) #Filtro HP
 
 #Carregando dados disponíveis no pacote URCA
-install.packages("urca")
+#install.packages("urca")
 library("urca")
 
 install.packages("forecast")
