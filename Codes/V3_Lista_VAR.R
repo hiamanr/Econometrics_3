@@ -284,7 +284,38 @@ fanchart(predict(modelo, ci = 0.95), plot.type = 'single')
 
 #1 TERMINA AQUI
 
-# REPOSTA 2 - VER CÓDIGO
+# REPOSTA 2
+
+exp = readxl::read_xls("expectativas.xls")
+exp = ts(exp[,2], start = c(2001, 7), frequency = 12)
+
+juros = read.csv("selic_atualizado.csv")
+juros = ts(juros[,2], start = c(juros[1,1]%/%1,juros[1,1]%%1*100), frequency = 12)
+
+infl = read.csv("nucleo_ipca.csv")
+infl = ts(infl[,2], start = c(infl[1,1]%/%1,infl[1,1]%%1*100), frequency = 12)
+
+#Anualizando variação mensal
+infl=100*((1+infl/100)^(12)-1)
+
+
+dados = cbind(exp, juros, infl)
+dados = window(dados, start = c(2001,07), end = c(2024,03))
+
+plot(dados)
+
+
+trnd = 1:nrow(dados)
+
+resid = residuals(lm(dados[,1:2]~ trnd))
+dados = cbind(dados,resid)
+
+
+VARselect(dados[,1:3], type = "both", lag.max = ceiling(12*(nrow(dados)/100)^(1/4)))
+
+#Vamos verificar o modelo do VAR com SC
+modelo = VAR(dados[,1:3],type = 'both', p = 2)
+
 
 
 
