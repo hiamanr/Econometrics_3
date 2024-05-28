@@ -313,9 +313,47 @@ dados = cbind(dados,resid)
 
 VARselect(dados[,1:3], type = "both", lag.max = ceiling(12*(nrow(dados)/100)^(1/4)))
 
-#Vamos verificar o modelo do VAR com SC
+#p selecionado = 2 (baseado no SC)
 modelo = VAR(dados[,1:3],type = 'both', p = 2)
 
 
+#Teste de RV
+
+stat = 2*(logLik(modelo) - logLik(VAR(dados[,1:3],type = 'both', p = 1)))
+print(stat)
+qchisq(0.95, 9)
+
+#Vamos verificar o teste de Portmanteau para autocorrelação dos resíduos
+serial.test(modelo, lags.pt = 20, type = c("PT.adjusted"))
+
+#Rejeitamos nula: VAR(2) joga muita informação fora
+
+#Usamos então VAR selecionado por AIC: p = 14
+
+modelo = VAR(dados[,1:3],type = 'both', p = 14)
+
+stat = 2*(logLik(modelo) - logLik(VAR(dados[,1:3],type = 'both', p = 13)))
+print(stat)
+#Valor crítico é, a 5%
+qchisq(0.95, 9)
+#Evidência de que precisamos desta defasagem
 
 
+serial.test(modelo, lags.pt = 20, type = c("PT.adjusted"))
+#Melhorou
+
+predicoes = predict(modelo, ci = 0.95)
+
+fanchart(predict(modelo, ci = 0.95), plot.type = 'single')
+
+#Previsões para abril e maio
+
+forecast(modelo, h = 2)
+
+#Podemos testar a hipótese de Granger-causalidade
+
+library(bruceR)
+
+granger_causality(modelo)
+
+#Rejeitamos a nula (p-valr < 0.001)
