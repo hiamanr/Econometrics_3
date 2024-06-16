@@ -64,7 +64,16 @@ modelo_reduzido <-  VAR(dados, type = 'none', p = 2)
 
 #Fixando semente para as simulações usadas no cálculo dos intervalos de confiança
 set.seed(1812)
-irf = irf(modelo_reduzido, impulse = "diff_log_real", n.ahead = 12, ci = 0.95, runs = 1000)
+irf = irf(modelo_reduzido, impulse = "diff_log_real", 
+          n.ahead = 12, ci = 0.95, runs = 1000)
 plot(irf)
 
+
+#Decomposição variância
+
+decomp = fevd(modelo_reduzido, n.ahead = 1000)
+
+decomp$diff_log_nominal[1:15,]
+
+decomp$diff_log_real[1:15,]
 
