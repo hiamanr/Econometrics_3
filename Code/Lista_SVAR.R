@@ -77,3 +77,30 @@ decomp$diff_log_nominal[1:15,]
 
 decomp$diff_log_real[1:15,]
 
+#Blanchard-Quah
+
+#Mudar a ordem dos dados pra restrição pedida
+dados_BQ <- cbind(diff_log_real, diff_log_nominal) %>% 
+  window(start = c(2002, 01), end = c(2024, 03))
+
+modelo_reduzido_BQ <-  VAR(dados_BQ, type = 'none', p = 2)
+
+BQ_svar <- BQ(modelo_reduzido_BQ)
+
+#Fixando semente para as simulações usadas no cálculo dos intervalos de confiança
+set.seed(1812)
+irf = irf(BQ_svar, impulse = "diff_log_real", 
+          n.ahead = 12, ci = 0.95, runs = 1000, cumulative = T)
+plot(irf)
+
+
+#Decomposição variância
+
+decomp_BQ = fevd(BQ_svar, n.ahead = 1000)
+
+decomp_BQ$diff_log_nominal[1:15,]
+
+decomp_BQ$diff_log_real[1:15,]
+ 
+
+
