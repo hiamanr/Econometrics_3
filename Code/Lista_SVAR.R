@@ -64,7 +64,7 @@ modelo_reduzido <-  VAR(dados, type = 'none', p = 2)
 
 #Fixando semente para as simulações usadas no cálculo dos intervalos de confiança
 set.seed(1812)
-irf = irf(modelo_reduzido, impulse = "diff_log_real", 
+irf = irf(modelo_reduzido, 
           n.ahead = 12, ci = 0.95, runs = 1000)
 plot(irf)
 
@@ -89,9 +89,9 @@ BQ_svar <- BQ(modelo_reduzido_BQ)
 
 #Fixando semente para as simulações usadas no cálculo dos intervalos de confiança
 set.seed(1812)
-irf_BQ = irf(BQ_svar, impulse = "diff_log_real", 
+irf_BQ = irf(BQ_svar, 
           n.ahead = 12, ci = 0.95, runs = 1000, cumulative = T)
-plot(irf)
+plot(irf_BQ)
 
 
 #Decomposição variância
@@ -101,6 +101,9 @@ decomp_BQ = fevd(BQ_svar, n.ahead = 1000)
 decomp_BQ$diff_log_nominal[1:15,]
 
 decomp_BQ$diff_log_real[1:15,]
+
+
+
  
 
 
