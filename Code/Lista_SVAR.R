@@ -89,7 +89,7 @@ BQ_svar <- BQ(modelo_reduzido_BQ)
 
 #Fixando semente para as simulações usadas no cálculo dos intervalos de confiança
 set.seed(1812)
-irf = irf(BQ_svar, impulse = "diff_log_real", 
+irf_BQ = irf(BQ_svar, impulse = "diff_log_real", 
           n.ahead = 12, ci = 0.95, runs = 1000, cumulative = T)
 plot(irf)
 
