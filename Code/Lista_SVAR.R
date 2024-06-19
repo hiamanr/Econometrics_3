@@ -91,6 +91,7 @@ BQ_svar <- BQ(modelo_reduzido_BQ)
 set.seed(1812)
 irf_BQ = irf(BQ_svar, 
           n.ahead = 12, ci = 0.95, runs = 1000, cumulative = T)
+
 plot(irf_BQ)
 
 
